@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shridhar Group of Company Special Offer</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap');
+
+        :root {
+            --g-blue: #4285F4;
+            --g-red: #DB4437;
+            --g-yellow: #F4B400;
+            --g-green: #0F9D58;
+            --g-gray: #f2f2f2;
+            --prof-dark: #2c3e50;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #202124;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --- LOGIN SCREEN --- */
+        #login-section {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(60,64,67,0.3), 0 4px 8px 3px rgba(60,64,67,0.15);
+            text-align: center;
+            width: 100%;
+            max-width: 360px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            box-sizing: border-box;
+        }
+
+        .company-logo {
+            font-size: 24px; 
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 10px;
+            color: var(--prof-dark);
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 13px 15px;
+            margin: 5px 0;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
+            box-sizing: border-box;
+            transition: 0.2s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border: 2px solid var(--prof-dark);
+            padding: 12px 14px; 
+        }
+
+        button {
+            background-color: var(--prof-dark);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            width: 100%;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        button:hover {
+            background-color: #1a252f;
+            box-shadow: 0 1px 2px rgba(60,64,67,0.3);
+        }
+
+        .error-msg {
+            color: var(--g-red);
+            font-size: 14px;
+            display: none;
+            font-weight: 600;
+        }
+
+        /* --- GAME SECTION --- */
+        #game-section {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .game-container {
+            position: relative;
+            width: 350px;
+            height: 350px;
+            margin-bottom: 30px;
+            max-width: 100%;
+            aspect-ratio: 1 / 1;
+        }
+
+        .indicator {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: white;
+            clip-path: polygon(100% 0, 0 0, 50% 100%);
+            z-index: 10;
+            filter: drop-shadow(0 4px 4px rgba(0,0,0,0.3));
+        }
+        .indicator::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 30px;
+            background: var(--prof-dark);
+            clip-path: polygon(100% 0, 0 0, 50% 100%);
+        }
+
+        canvas {
+            border-radius: 50%;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: transform 5s cubic-bezier(0.25, 0.1, 0.25, 1);
+            width: 100%;
+            height: 100%;
+        }
+
+        .spin-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            background: white;
+            border-radius: 50%;
+            border: 4px solid rgba(0,0,0,0.1);
+            color: #333;
+            font-weight: 900;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 5;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            text-transform: uppercase;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .spin-btn:active {
+            transform: translate(-50%, -50%) scale(0.95);
+        }
+
+        .spin-btn:disabled {
+            background: #eee;
+            color: #999;
+            cursor: not-allowed;
+        }
+
+        /* --- MODAL --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            animation: fadeIn 0.3s;
+            padding: 20px;
+        }
+
+        .modal {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            max-width: 90%;
+            width: 320px;
+            animation: slideUp 0.3s;
+            box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+        }
+
+        .modal h2 {
+            margin: 0 0 15px 0;
+            color: var(--prof-dark);
+            font-weight: 800;
+        }
+
+        .modal p {
+            font-size: 18px;
+            margin: 0 0 10px 0;
+            color: #5f6368;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        .offer-code {
+            font-size: 28px;
+            font-weight: 900;
+            color: #0F9D58;
+            display: block;
+            margin: 10px 0;
+        }
+
+        .t-and-c {
+            font-size: 11px;
+            color: #999;
+            margin-bottom: 25px;
+            display: block;
+        }
+
+        /* Secret Trigger Styling */
+        #secret-trigger {
+            cursor: text;
+            user-select: none; 
+            /* Looks like normal text but selectable */
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(20px); } to { transform: translateY(0); } }
+
+        @media (max-width: 400px) {
+            .game-container { width: 300px; height: 300px; }
+            .company-logo { font-size: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LOGIN SECTION -->
+    <div id="login-section">
+        <div class="company-logo">
+            Shridhar Group of Company
+        </div>
+        <h3 style="margin:0; font-weight:500; color:#5f6368; font-size: 16px;">Client Offer Portal</h3>
+        <p style="margin:5px 0 0 0; font-size:13px; color:#9aa0a6;">Sign in to access your exclusive deal</p>
+        
+        <div style="text-align: left; margin-top: 15px;">
+            <input type="text" id="username" placeholder="Username" autocomplete="off">
+            <input type="password" id="password" placeholder="Password">
+        </div>
+        
+        <p id="login-error" class="error-msg">Invalid credentials. Try again.</p>
+        <button onclick="attemptLogin()" style="margin-top: 15px;">Sign In</button>
+    </div>
+
+    <!-- GAME SECTION -->
+    <div id="game-section">
+        <div class="company-logo" style="margin-bottom: 30px; text-align: center;">
+             Shridhar Group of Company<br>
+            <span style="color:#5f6368; font-weight: 400; font-size: 18px; text-transform: none;">Exclusive Offers</span>
+        </div>
+
+        <div class="game-container">
+            <div class="indicator"></div>
+            <canvas id="wheelCanvas" width="350" height="350"></canvas>
+            <button class="spin-btn" id="spinBtn" onclick="spinWheel()">SPIN</button>
+        </div>
+        
+        <p style="color:#5f6368; font-size: 14px; max-width: 300px; text-align: center; font-weight: 500;">
+            Spin the wheel to reveal your exclusive discount. <br>
+            <!-- ADDED SECRET TRIGGER ID HERE -->
+            <strong>Note:</strong> One spin allowed per <span id="secret-trigger" onclick="handleSecretTap()">session</span>.
+        </p>
+    </div>
+
+    <!-- RESULT MODAL -->
+    <div class="modal-overlay" id="resultModal">
+        <div class="modal">
+            <h2 id="modalTitle">Congratulations!</h2>
+            <p id="modalMessage">
+                You won <br>
+                <span class="offer-code">75% OFF</span>
+                on Shridhar Group of Company Services
+            </p>
+            <span class="t-and-c">*Terms and conditions applied</span>
+            <button onclick="claimOffer()">Claim Now</button> 
+        </div>
+    </div>
+
+    <!-- FOUNDER MODE MODAL -->
+    <div class="modal-overlay" id="founderModal">
+        <div class="modal">
+            <h2 style="color: var(--prof-dark);">Founder Mode</h2>
+            <p style="font-size: 14px;">Enter Passcode to unlock free spins.</p>
+            
+            <input type="password" id="founderPass" placeholder="Passcode" style="margin-bottom: 10px;">
+            
+            <div id="founderSettings" style="display:none;">
+                <p style="font-size: 14px; margin-top: 10px;">Select number of spins:</p>
+                <select id="spinCountSelect">
+                    <option value="1">1 Spin</option>
+                    <option value="2">2 Spins</option>
+                    <option value="3">3 Spins</option>
+                    <option value="4">4 Spins</option>
+                    <option value="5">5 Spins</option>
+                    <option value="6">6 Spins</option>
+                    <option value="7">7 Spins</option>
+                    <option value="8">8 Spins</option>
+                    <option value="9">9 Spins</option>
+                    <option value="10">10 Spins</option>
+                </select>
+            </div>
+
+            <p id="founderMsg" style="color: #0F9D58; font-size: 14px; display: none; font-weight: bold; margin-top: 10px;"></p>
+            <p id="founderError" class="error-msg" style="margin-top: 10px;">Invalid Passcode</p>
+
+            <button id="founderBtn" onclick="checkFounderPass()" style="margin-top: 15px;">Unlock</button>
+            <button id="founderConfirmBtn" onclick="confirmFounderSpins()" style="margin-top: 10px; display:none; background-color: #0F9D58;">Confirm Spins</button>
+            <button onclick="closeFounderModal()" style="background-color: transparent; color: #999; margin-top: 5px; font-size: 12px;">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        // --- CONFIGURATION ---
+        const CREDENTIALS = { user: 'cs', pass: 'sc' };
+        let currentUser = ""; 
+        const COLORS = ['#4285F4', '#DB4437', '#F4B400', '#0F9D58']; 
+
+        const SEGMENTS = ["100% OFF", "75% OFF", "50% OFF", "Spin Again", "25% OFF", "95% OFF", "90% OFF", "75% OFF", "Spin Again", "50% OFF", "25% OFF", "100% OFF"];
+        const ALLOWED_INDICES = [1, 7];
+
+        // DOM Elements
+        const loginSection = document.getElementById('login-section');
+        const gameSection = document.getElementById('game-section');
+        const canvas = document.getElementById('wheelCanvas');
+        const ctx = canvas.getContext('2d');
+        const spinBtn = document.getElementById('spinBtn');
+        const resultModal = document.getElementById('resultModal');
+        const founderModal = document.getElementById('founderModal');
+
+        // State
+        let currentRotation = 0;
+        let isSpinning = false;
+        let founderSpinsLeft = 0;
+
+        // --- SECRET TRIGGER LOGIC ---
+        let tapCount = 0;
+        let tapTimer = null;
+
+        function handleSecretTap() {
+            tapCount++;
+            // Reset counter if no tap within 1 second (continuous check)
+            if (tapTimer) clearTimeout(tapTimer);
+            tapTimer = setTimeout(() => { tapCount = 0; }, 800); 
+
+            if (tapCount === 5) {
+                tapCount = 0; // Reset
+                openFounderModal();
+            }
+        }
+
+        function openFounderModal() {
+            founderModal.style.display = 'flex';
+            // Reset Founder UI
+            document.getElementById('founderPass').value = '';
+            document.getElementById('founderPass').style.display = 'block';
+            document.getElementById('founderSettings').style.display = 'none';
+            document.getElementById('founderBtn').style.display = 'inline-block';
+            document.getElementById('founderConfirmBtn').style.display = 'none';
+            document.getElementById('founderMsg').style.display = 'none';
+            document.getElementById('founderError').style.display = 'none';
+        }
+
+        function closeFounderModal() {
+            founderModal.style.display = 'none';
+        }
+
+        function checkFounderPass() {
+            const pass = document.getElementById('founderPass').value;
+            const err = document.getElementById('founderError');
+            
+            if (pass === 'cs') {
+                // Success UI Transition
+                err.style.display = 'none';
+                document.getElementById('founderPass').style.display = 'none';
+                document.getElementById('founderBtn').style.display = 'none';
+                document.getElementById('founderSettings').style.display = 'block';
+                document.getElementById('founderConfirmBtn').style.display = 'inline-block';
+            } else {
+                err.style.display = 'block';
+            }
+        }
+
+        function confirmFounderSpins() {
+            const count = document.getElementById('spinCountSelect').value;
+            founderSpinsLeft = parseInt(count);
+
+            // Show Success Message
+            const msg = document.getElementById('founderMsg');
+            msg.innerText = "Spin Again Because you are founder";
+            msg.style.display = 'block';
+            
+            document.getElementById('founderSettings').style.display = 'none';
+            document.getElementById('founderConfirmBtn').style.display = 'none';
+
+            // Apply Logic
+            setTimeout(() => {
+                closeFounderModal();
+                enableSpinButtonForFounder();
+            }, 2000);
+        }
+
+        function enableSpinButtonForFounder() {
+            // Override any existing disabled state
+            localStorage.removeItem('offer_claimed_cs'); // Clear storage lock
+            spinBtn.disabled = false;
+            spinBtn.style.backgroundColor = "white";
+            spinBtn.innerText = "SPIN";
+            isSpinning = false;
+        }
+
+        // --- LOGIN LOGIC ---
+        function attemptLogin() {
+            const u = document.getElementById('username').value;
+            const p = document.getElementById('password').value;
+            const err = document.getElementById('login-error');
+
+            if (u === CREDENTIALS.user && p === CREDENTIALS.pass) {
+                currentUser = u; 
+                loginSection.style.display = 'none';
+                gameSection.style.display = 'flex';
+                err.style.display = 'none';
+                drawWheel();
+                checkStorage();
+            } else {
+                err.style.display = 'block';
+            }
+        }
+
+        function checkStorage() {
+            if (localStorage.getItem('offer_claimed_cs') === 'true' && founderSpinsLeft <= 0) {
+                spinBtn.disabled = true;
+                spinBtn.innerText = "DONE";
+                spinBtn.style.backgroundColor = "#ccc";
+            }
+        }
+
+        // --- WHEEL LOGIC ---
+        function drawWheel() {
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const radius = canvas.width / 2;
+            const arc = Math.PI * 2 / SEGMENTS.length;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            SEGMENTS.forEach((segment, i) => {
+                const angle = i * arc - (Math.PI / 2); 
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.arc(centerX, centerY, radius, angle, angle + arc);
+                ctx.lineTo(centerX, centerY);
+                ctx.fillStyle = COLORS[i % COLORS.length];
+                ctx.fill();
+                ctx.save();
+
+                ctx.translate(centerX, centerY);
+                ctx.rotate(angle + arc / 2);
+                ctx.textAlign = "right";
+                ctx.fillStyle = "#ffffff";
+                ctx.font = "bold 15px Montserrat"; 
+                
+                let text = segment.replace(" OFF", "%");
+                if(segment.includes("Spin")) text = "Spin Again";
+                else text = segment;
+
+                ctx.fillText(text, radius - 20, 5);
+                ctx.restore();
+            });
+        }
+
+        function spinWheel() {
+            if (isSpinning) return;
+            // Allow spin if founder spins remain OR if not claimed yet
+            if (founderSpinsLeft <= 0 && localStorage.getItem('offer_claimed_cs') === 'true') return;
+
+            isSpinning = true;
+            spinBtn.disabled = true;
+
+            const targetIndex = ALLOWED_INDICES[Math.floor(Math.random() * ALLOWED_INDICES.length)];
+            const segmentAngle = 360 / SEGMENTS.length;
+            const extraSpins = 5 * 360; 
+            const randomOffset = Math.floor(Math.random() * 20) - 10; 
+            const stopAngle = (targetIndex * segmentAngle);
+            const totalRotation = extraSpins + (360 - stopAngle) + randomOffset;
+
+            canvas.style.transform = `rotate(${totalRotation}deg)`;
+
+            setTimeout(() => {
+                isSpinning = false;
+                showResult(); 
+                
+                // Logic for locking vs repeat
+                if (founderSpinsLeft > 0) {
+                    founderSpinsLeft--; // Decrement
+                    // Do not lock storage yet
+                } else {
+                    localStorage.setItem('offer_claimed_cs', 'true');
+                    spinBtn.innerText = "DONE";
+                }
+            }, 5000); 
+        }
+
+        function showResult() {
+            resultModal.style.display = 'flex';
+        }
+
+        function claimOffer() {
+            // Closes modal. If Founder mode active, re-enables spin button
+            resultModal.style.display = 'none';
+
+            if (founderSpinsLeft > 0) {
+                spinBtn.disabled = false;
+                spinBtn.innerText = `SPIN (${founderSpinsLeft})`;
+                return; // Don't redirect yet, let them spin again
+            }
+
+            // Normal Claim Logic
+            const uniqueId = "SG-" + Math.floor(Math.random() * 1000) + "-" + Date.now().toString().slice(-5);
+            const phoneNumber = "917483640694"; 
+            const text = `Hello, I am *${currentUser}*.%0a%0aI just won *75% OFF* on Shridhar Group of Company Services!%0a%0aUnique Claim ID: *${uniqueId}*%0a%0aPlease help me claim this offer.`;
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${text}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        document.getElementById('password').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') attemptLogin();
+        });
+        document.getElementById('founderPass').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') checkFounderPass();
+        });
+
+    </script>
+</body>
+</html>
