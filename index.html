@@ -2,397 +2,381 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brilliant Students Exclusive Offer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Brilliant Students Royal Selection</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Montserrat:wght@400;600;700&display=swap');
+        /* IMPORT ROYAL FONTS */
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Montserrat:wght@400;600;700;800&display=swap');
 
         :root {
-            /* ROYAL GREEN GOLD THEME */
-            --theme-green: #004d40; /* Royal Deep Green */
-            --theme-green-light: #00695c;
-            --theme-gold: #ffd700;  /* Royal Gold */
-            --theme-gold-dark: #c5a000;
-            --theme-cream: #f9f9f9;
-            --theme-text: #212121;
+            --g-green: #004d40;  /* Deep Royal Green */
+            --g-gold: #ffd700;   /* Bright Gold */
+            --g-cream: #f4f7f6;  /* Light Background */
+            --text-dark: #1a1a1a;
         }
 
-        body {
-            font-family: 'Montserrat', sans-serif;
+        /* --- GLOBAL RESET & MOBILE FIXES --- */
+        * {
+            -webkit-tap-highlight-color: transparent;
+            outline: none;
+            box-sizing: border-box;
+            user-select: none; /* Prevent text selection highlight everywhere */
+        }
+
+        /* Allow text selection only on inputs */
+        input, textarea {
+            user-select: text;
+        }
+
+        html, body {
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            background-color: var(--theme-cream);
-            color: var(--theme-text);
+            width: 100%;
+            /* CRITICAL FIX: Use dvh to prevent jumping when address bar moves */
+            height: 100dvh; 
+            overflow: hidden; /* Lock scroll completely */
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+            font-family: 'Montserrat', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            overflow: hidden;
+            position: fixed; /* Anchors body to prevent 'flopping' */
+            top: 0;
+            left: 0;
         }
 
-        /* --- LOGIN SCREEN --- */
+        /* --- LOGIN CARD --- */
         #login-section {
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            border: 2px solid var(--theme-gold);
-            box-shadow: 0 10px 25px rgba(0, 77, 64, 0.2);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 35px 30px;
+            border-radius: 15px;
+            border: 2px solid var(--g-gold);
+            box-shadow: 0 10px 25px rgba(0, 77, 64, 0.15);
             text-align: center;
-            width: 100%;
-            max-width: 360px;
+            width: 90%;
+            max-width: 380px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
-            box-sizing: border-box;
+            gap: 15px;
+            z-index: 10;
+        }
+
+        .title-main {
+            font-family: 'Cinzel', serif;
+            font-weight: 900;
+            font-size: 24px;
+            color: var(--g-green);
+            text-transform: uppercase;
+            line-height: 1.1;
+            margin-bottom: 5px;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.1);
+        }
+
+        .title-sub {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--g-gold); /* Gold color for subtitle */
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            text-shadow: 0px 0px 1px rgba(0,0,0,0.2);
+        }
+
+        /* INPUTS */
+        .input-group {
+            text-align: left;
+        }
+        
+        input {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
+            background: #f9f9f9;
+            transition: all 0.3s ease;
+            -webkit-appearance: none; /* Remove iOS shadows */
+        }
+
+        input:focus {
+            border-color: var(--g-green);
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(0, 77, 64, 0.1);
+        }
+
+        /* BUTTONS */
+        button {
+            background: var(--g-green);
+            color: var(--g-gold);
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 800;
+            font-family: 'Cinzel', serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.1s, background 0.2s;
             position: relative;
             overflow: hidden;
         }
 
-        /* Gold decorative bar */
-        #login-section::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 6px;
-            background: linear-gradient(90deg, var(--theme-gold), var(--theme-green), var(--theme-gold));
-        }
-
-        .company-logo {
-            font-family: 'Cinzel', serif; /* Royal Font */
-            font-size: 26px; 
-            font-weight: 900;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
-            color: var(--theme-green);
-            text-transform: uppercase;
-            line-height: 1.2;
-            text-shadow: 1px 1px 0px rgba(0,0,0,0.1);
-        }
-
-        .subtitle {
-            font-size: 14px;
-            color: var(--theme-gold-dark);
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        input {
-            width: 100%;
-            padding: 14px 15px;
-            margin: 5px 0;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 16px;
-            font-family: 'Montserrat', sans-serif;
-            box-sizing: border-box;
-            transition: 0.3s;
-            background-color: #fcfcfc;
-        }
-
-        input:focus {
-            outline: none;
-            border: 1px solid var(--theme-green);
-            box-shadow: 0 0 0 3px rgba(0, 77, 64, 0.1);
-            background-color: white;
-        }
-
-        button {
-            background: linear-gradient(to right, var(--theme-green), var(--theme-green-light));
-            color: var(--theme-gold);
-            border: none;
-            padding: 14px 24px;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s;
-            width: 100%;
-            font-family: 'Cinzel', serif;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        button:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-            color: white;
-        }
-
-        .error-msg {
-            color: #d32f2f;
-            font-size: 14px;
-            display: none;
-            font-weight: 600;
-            background: #ffebee;
-            padding: 8px;
-            border-radius: 4px;
+        button:active {
+            transform: scale(0.98);
         }
 
         /* --- GAME SECTION --- */
         #game-section {
-            display: none;
+            display: none; /* Hidden by default */
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             width: 100%;
-            padding: 20px;
-            box-sizing: border-box;
+            height: 100%;
         }
 
-        .game-container {
+        .wheel-wrapper {
             position: relative;
-            width: 360px;
-            height: 360px;
-            margin-bottom: 30px;
-            max-width: 100%;
-            aspect-ratio: 1 / 1;
-            /* Gold Glow */
-            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.3));
+            width: 340px;
+            height: 340px;
+            max-width: 90vw; /* Responsive for small screens */
+            max-height: 90vw;
+            margin: 20px 0;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2));
         }
 
+        /* THE INDICATOR TRIANGLE */
         .indicator {
             position: absolute;
-            top: -20px;
+            top: -10px;
             left: 50%;
-            transform: translateX(-50%);
-            width: 44px;
-            height: 44px;
-            z-index: 10;
-        }
-        
-        .indicator::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 0;
             transform: translateX(-50%);
             width: 0; 
             height: 0; 
-            border-left: 15px solid transparent;
-            border-right: 15px solid transparent;
-            border-top: 35px solid var(--theme-green); /* Pointer Color */
-            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3));
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 35px solid var(--g-green); /* Green Pointer matches image */
+            z-index: 10;
+            filter: drop-shadow(0 2px 3px rgba(0,0,0,0.3));
         }
 
         canvas {
-            border-radius: 50%;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            /* FASTER TRANSITION: 3 seconds for fast spin stop */
-            transition: transform 3s cubic-bezier(0.1, 0.7, 0.1, 1);
             width: 100%;
             height: 100%;
-            border: 8px solid white;
+            border-radius: 50%;
+            border: 6px solid #fff;
             box-sizing: border-box;
+            background: #fff;
+            transition: transform 4s cubic-bezier(0.15, 0, 0.2, 1); /* Smooth deceleration */
         }
 
-        .spin-btn {
+        .spin-btn-center {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 76px;
-            height: 76px;
-            background: white;
+            width: 65px;
+            height: 65px;
+            background: #fff;
             border-radius: 50%;
-            border: 4px solid var(--theme-gold);
-            color: var(--theme-green);
-            font-weight: 900;
-            font-size: 15px;
+            border: 4px solid var(--g-gold);
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
             z-index: 5;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            text-transform: uppercase;
-            font-family: 'Cinzel', serif;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .spin-btn:active {
+        .spin-btn-center span {
+            color: var(--g-green);
+            font-family: 'Cinzel', serif;
+            font-weight: 900;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+
+        .spin-btn-center:active {
             transform: translate(-50%, -50%) scale(0.95);
         }
 
-        .spin-btn:disabled {
-            background: #eee;
-            color: #999;
-            border-color: #ccc;
-            cursor: not-allowed;
+        .footer-note {
+            font-size: 13px;
+            color: #555;
+            text-align: center;
+            margin-top: 15px;
+            line-height: 1.5;
         }
 
         /* --- MODAL --- */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 77, 64, 0.85); /* Green overlay */
+            background: rgba(0, 77, 64, 0.9); /* Deep Green Overlay */
             display: none;
             justify-content: center;
             align-items: center;
-            z-index: 100;
+            z-index: 1000;
+            backdrop-filter: blur(4px);
             animation: fadeIn 0.3s;
-            padding: 20px;
         }
 
-        .modal {
+        .modal-card {
             background: white;
-            padding: 35px;
-            border-radius: 12px;
+            padding: 30px;
+            border-radius: 16px;
+            width: 85%;
+            max-width: 320px;
             text-align: center;
-            max-width: 90%;
-            width: 340px;
-            animation: slideUp 0.3s;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            border: 2px solid var(--theme-gold);
+            border: 2px solid var(--g-gold);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .modal h2 {
-            margin: 0 0 10px 0;
-            color: var(--theme-green);
+        .offer-big {
             font-family: 'Cinzel', serif;
-            font-weight: 800;
-        }
-
-        .modal p {
-            font-size: 16px;
-            margin: 0 0 10px 0;
-            color: #555;
-            line-height: 1.5;
-        }
-
-        .offer-code {
             font-size: 32px;
             font-weight: 900;
-            color: var(--theme-gold-dark);
-            display: block;
-            margin: 15px 0;
-            font-family: 'Cinzel', serif;
-            text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
-        }
-
-        .t-and-c {
-            font-size: 11px;
-            color: #999;
-            margin-bottom: 25px;
+            color: var(--g-green);
+            margin: 10px 0;
             display: block;
         }
 
-        /* Secret Trigger Styling */
+        .error-msg {
+            color: #d32f2f;
+            font-size: 13px;
+            font-weight: 700;
+            display: none;
+            margin-top: 10px;
+        }
+
+        /* FOUNDER MODE HIDDEN TRIGGER */
         #secret-trigger {
             cursor: default;
-            user-select: none; 
         }
 
+        /* ANIMATIONS */
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideUp { from { transform: translateY(20px); } to { transform: translateY(0); } }
+        @keyframes popUp { from { transform: scale(0.8) translateY(20px); opacity: 0; } to { transform: scale(1) translateY(0); opacity: 1; } }
 
-        @media (max-width: 400px) {
-            .game-container { width: 300px; height: 300px; }
-            .company-logo { font-size: 22px; }
+        /* RESPONSIVE TWEAKS */
+        @media (max-height: 700px) {
+            .wheel-wrapper { width: 280px; height: 280px; }
+            .title-main { font-size: 20px; }
+            .modal-card { padding: 20px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- LOGIN SECTION -->
+    <!-- === LOGIN SCREEN === -->
     <div id="login-section">
         <div>
-            <div class="company-logo">Brilliant Students</div>
-            <div class="subtitle">Exclusive Rewards</div>
+            <div class="title-main">Brilliant Students</div>
+            <div class="title-sub">Royal Selection</div>
         </div>
         
-        <p style="margin:5px 0 0 0; font-size:13px; color:#666;">Sign in to unlock your student benefits</p>
-        
-        <div style="text-align: left; margin-top: 10px;">
-            <input type="text" id="username" placeholder="Username" autocomplete="off">
+        <div class="input-group">
+            <input type="text" id="username" placeholder="Username" autocomplete="off" spellcheck="false">
             <input type="password" id="password" placeholder="Password">
         </div>
-        
-        <p id="login-error" class="error-msg">Invalid Access. Please contact support.</p>
-        <button onclick="attemptLogin()" style="margin-top: 10px;">Access Portal</button>
+
+        <button onclick="attemptLogin()">Access Portal</button>
+        <div id="login-error" class="error-msg">Invalid Credentials</div>
     </div>
 
-    <!-- GAME SECTION -->
+    <!-- === GAME SCREEN === -->
     <div id="game-section">
-        <div class="company-logo" style="margin-bottom: 30px; text-align: center;">
-             Brilliant Students<br>
-            <span style="color:var(--theme-gold-dark); font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 16px; text-transform: uppercase; letter-spacing: 2px;">Royal Selection</span>
+        <div style="text-align: center; margin-bottom: 20px;">
+            <div class="title-main">Brilliant Students</div>
+            <div class="title-sub" style="margin-bottom: 0; color: var(--g-gold);">Royal Selection</div>
         </div>
 
-        <div class="game-container">
+        <div class="wheel-wrapper">
             <div class="indicator"></div>
-            <canvas id="wheelCanvas" width="360" height="360"></canvas>
-            <button class="spin-btn" id="spinBtn" onclick="spinWheel()">SPIN</button>
+            <canvas id="wheelCanvas" width="700" height="700"></canvas> <!-- High Res Canvas -->
+            <!-- CENTER SPIN BUTTON -->
+            <div class="spin-btn-center" id="spinBtn" onclick="spinWheel()">
+                <span>SPIN</span>
+            </div>
         </div>
-        
-        <p style="color:#555; font-size: 14px; max-width: 300px; text-align: center; font-weight: 500;">
+
+        <div class="footer-note">
             Spin the Royal Wheel to reveal your scholarship.<br>
             <strong>Note:</strong> One spin per <span id="secret-trigger" onclick="handleSecretTap()">student</span>.
-        </p>
-    </div>
-
-    <!-- RESULT MODAL -->
-    <div class="modal-overlay" id="resultModal">
-        <div class="modal">
-            <h2 id="modalTitle">Congratulations!</h2>
-            <p id="modalMessage">
-                You have been selected for<br>
-                <span class="offer-code">50% OFF</span>
-                on Brilliant Students Courses
-            </p>
-            <span class="t-and-c">*Terms and conditions applied</span>
-            <button onclick="claimOffer()">Claim Scholarship</button> 
         </div>
     </div>
 
-    <!-- FOUNDER MODE MODAL (Hidden Admin Panel) -->
+    <!-- === RESULT MODAL === -->
+    <div class="modal-overlay" id="resultModal">
+        <div class="modal-card">
+            <h2 style="margin: 0; color: var(--g-green); font-family: 'Cinzel', serif;">CONGRATULATIONS!</h2>
+            <p style="color: #666; margin: 10px 0;">You have been selected for</p>
+            
+            <span class="offer-big">50% OFF</span>
+            
+            <p style="font-size: 14px; color: #444; font-weight: 600;">on Brilliant Students Courses</p>
+            <div style="font-size: 10px; color: #999; margin: 15px 0 20px;">*Terms & conditions apply</div>
+            
+            <button onclick="claimOffer()">CLAIM SCHOLARSHIP</button>
+        </div>
+    </div>
+
+    <!-- === FOUNDER MODAL === -->
     <div class="modal-overlay" id="founderModal">
-        <div class="modal">
-            <h2 style="color: var(--theme-green);">Admin Override</h2>
-            <p style="font-size: 14px;">Enter Passcode to reset spins.</p>
+        <div class="modal-card">
+            <h3 style="color: var(--g-green); margin-top:0;">ADMIN OVERRIDE</h3>
+            <input type="password" id="founderPass" placeholder="Enter Passcode" style="text-align: center;">
             
-            <input type="password" id="founderPass" placeholder="Passcode" style="margin-bottom: 10px;">
-            
-            <div id="founderSettings" style="display:none;">
-                <p style="font-size: 14px; margin-top: 10px;">Select number of spins:</p>
-                <select id="spinCountSelect" style="width: 100%; padding: 10px; margin-bottom: 10px;">
+            <!-- Settings Area -->
+            <div id="founderSettings" style="display:none; text-align: left;">
+                <label style="font-size: 12px; font-weight: bold; display: block; margin-bottom: 5px;">Spins:</label>
+                <select id="spinCountSelect" style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 6px;">
                     <option value="1">1 Spin</option>
-                    <option value="2">2 Spins</option>
-                    <option value="3">3 Spins</option>
+                    <option value="5">5 Spins</option>
                     <option value="10">10 Spins</option>
+                    <option value="100">Unlimited</option>
                 </select>
             </div>
 
-            <p id="founderMsg" style="color: var(--theme-green); font-size: 14px; display: none; font-weight: bold; margin-top: 10px;"></p>
-            <p id="founderError" class="error-msg" style="margin-top: 10px;">Access Denied</p>
+            <p id="founderMsg" style="color: var(--g-green); font-size: 13px; font-weight: bold; display:none;"></p>
+            <p id="founderError" class="error-msg">Access Denied</p>
 
-            <button id="founderBtn" onclick="checkFounderPass()" style="margin-top: 15px;">Unlock</button>
-            <button id="founderConfirmBtn" onclick="confirmFounderSpins()" style="margin-top: 10px; display:none; background-color: var(--theme-green);">Confirm Spins</button>
-            <button onclick="closeFounderModal()" style="background-color: transparent; color: #999; margin-top: 5px; font-size: 12px; box-shadow: none;">Cancel</button>
+            <button id="founderBtn" onclick="checkFounderPass()" style="margin-top: 10px;">UNLOCK</button>
+            <button id="founderConfirmBtn" onclick="confirmFounderSpins()" style="margin-top: 10px; display:none; background: var(--g-gold); color: var(--g-green);">CONFIRM</button>
+            
+            <div onclick="closeFounderModal()" style="margin-top: 15px; font-size: 12px; color: #999; cursor: pointer;">Cancel</div>
         </div>
     </div>
 
     <script>
         // --- CONFIGURATION ---
-        // Login Credentials
         const USERS = {
-            'cs': 'sc',               // Original User
-            'chandana': 'SPIN2025'    // New User
+            'cs': 'sc',
+            'chandana': 'SPIN2025'
         };
-        
-        let currentUser = ""; 
-        
-        // Colors: Royal Green and Gold Alternating
-        const COLORS = ['#004d40', '#ffd700', '#004d40', '#ffd700']; 
-        const TEXT_COLORS = ['#ffd700', '#004d40', '#ffd700', '#004d40'];
 
-        // Segments (12 segments)
-        const SEGMENTS = ["100% OFF", "75% OFF", "50% OFF", "Spin Again", "25% OFF", "95% OFF", "90% OFF", "75% OFF", "Spin Again", "50% OFF", "25% OFF", "100% OFF"];
+        // ROYAL COLORS from Image: Green and Gold
+        const C_GREEN = '#004d40';
+        const C_GOLD = '#ffd700';
         
-        // CRITICAL: Indices for "50% OFF"
-        const FORCED_INDICES_50_PERCENT = [2, 9];
+        // Alternating Colors
+        const SEGMENT_COLORS = [C_GREEN, C_GOLD, C_GREEN, C_GOLD, C_GREEN, C_GOLD, C_GREEN, C_GOLD, C_GREEN, C_GOLD, C_GREEN, C_GOLD];
+        // Text Color Logic: If bg is Green -> Gold text. If bg is Gold -> Green text.
+        
+        const SEGMENTS = ["100% OFF", "25% OFF", "100% OFF", "75% OFF", "50% OFF", "Spin Again", "25% OFF", "95% OFF", "90% OFF", "75% OFF", "Spin Again", "50% OFF"];
+        
+        // Winning Indices for 50% OFF (Indices 4 and 11 based on array above)
+        const TARGET_INDICES = [4, 11];
 
-        // DOM Elements
+        // --- DOM ELEMENTS ---
         const loginSection = document.getElementById('login-section');
         const gameSection = document.getElementById('game-section');
         const canvas = document.getElementById('wheelCanvas');
@@ -401,25 +385,173 @@
         const resultModal = document.getElementById('resultModal');
         const founderModal = document.getElementById('founderModal');
 
-        // State
+        // --- STATE ---
         let isSpinning = false;
         let founderSpinsLeft = 0;
+        let currentUser = "";
 
-        // --- SECRET TRIGGER LOGIC (Tap "student" 5 times) ---
+        // --- SECRET TAP LOGIC ---
         let tapCount = 0;
-        let tapTimer = null;
+        let tapTimer;
 
         function handleSecretTap() {
             tapCount++;
-            if (tapTimer) clearTimeout(tapTimer);
-            tapTimer = setTimeout(() => { tapCount = 0; }, 800); 
-
+            clearTimeout(tapTimer);
+            tapTimer = setTimeout(() => { tapCount = 0; }, 800);
+            
             if (tapCount === 5) {
-                tapCount = 0; 
+                tapCount = 0;
                 openFounderModal();
             }
         }
 
+        // --- LOGIN ---
+        function attemptLogin() {
+            const u = document.getElementById('username').value.trim();
+            const p = document.getElementById('password').value.trim();
+            const err = document.getElementById('login-error');
+
+            if (USERS[u] && USERS[u] === p) {
+                currentUser = u;
+                // Transition
+                loginSection.style.display = 'none';
+                gameSection.style.display = 'flex';
+                // Initialize Game
+                resizeCanvas(); // Ensure sharpness
+                drawWheel();
+                checkStorage();
+            } else {
+                err.style.display = 'block';
+                // Shake effect
+                document.getElementById('login-section').style.animation = 'none';
+                setTimeout(() => document.getElementById('login-section').style.animation = 'shake 0.3s', 10);
+            }
+        }
+
+        // --- CANVAS DRAWING ---
+        function resizeCanvas() {
+            // Retina support
+            const size = 700; 
+            canvas.width = size;
+            canvas.height = size;
+        }
+
+        function drawWheel() {
+            const w = canvas.width;
+            const h = canvas.height;
+            const cx = w / 2;
+            const cy = h / 2;
+            const r = w / 2;
+            const arc = Math.PI * 2 / SEGMENTS.length;
+
+            ctx.clearRect(0, 0, w, h);
+
+            SEGMENTS.forEach((text, i) => {
+                const angle = i * arc - Math.PI / 2;
+                
+                // Draw Slice
+                ctx.beginPath();
+                ctx.moveTo(cx, cy);
+                ctx.arc(cx, cy, r, angle, angle + arc);
+                ctx.lineTo(cx, cy);
+                ctx.fillStyle = SEGMENT_COLORS[i % SEGMENT_COLORS.length];
+                ctx.fill();
+
+                // Draw Text
+                ctx.save();
+                ctx.translate(cx, cy);
+                ctx.rotate(angle + arc / 2);
+                ctx.textAlign = "right";
+                
+                // Set Text Color based on BG
+                ctx.fillStyle = (ctx.fillStyle === C_GREEN) ? C_GOLD : C_GREEN;
+                ctx.font = "bold 34px 'Cinzel', serif"; // Larger font for High DPI
+                
+                // Adjust text
+                let displayText = text.replace(" OFF", "%");
+                if (text.includes("Spin")) {
+                    displayText = "SPIN AGAIN";
+                    ctx.font = "bold 24px 'Cinzel', serif"; // Smaller for longer text
+                }
+                
+                ctx.fillText(displayText, r - 30, 10);
+                ctx.restore();
+            });
+        }
+
+        // --- SPIN LOGIC ---
+        function spinWheel() {
+            if (isSpinning) return;
+            
+            // Check Permissions
+            const alreadyClaimed = localStorage.getItem('bs_offer_claimed') === 'true';
+            if (alreadyClaimed && founderSpinsLeft <= 0) return;
+
+            isSpinning = true;
+            spinBtn.style.opacity = "0.7";
+
+            // Calculate Target
+            const targetIndex = TARGET_INDICES[Math.floor(Math.random() * TARGET_INDICES.length)];
+            const segmentArc = 360 / SEGMENTS.length;
+            
+            // Center alignment math
+            // We want the indicator (top) to point to the center of the segment
+            // Default rotation 0 points to segment 0 at 3 o'clock? No, we drew from -PI/2 (12 o'clock).
+            // Actually, simplified math:
+            const randomOffset = Math.floor(Math.random() * 10) - 5; // Slight randomness
+            const stopAngle = 360 * 6 + (360 - (targetIndex * segmentArc) - (segmentArc/2)); 
+
+            // Apply Rotation
+            canvas.style.transform = `rotate(${stopAngle + randomOffset}deg)`;
+
+            // Wait for Animation (4s)
+            setTimeout(() => {
+                isSpinning = false;
+                spinBtn.style.opacity = "1";
+                showResult();
+
+                if (founderSpinsLeft > 0) {
+                    founderSpinsLeft--;
+                } else {
+                    localStorage.setItem('bs_offer_claimed', 'true');
+                    document.querySelector('#spinBtn span').innerText = "DONE";
+                    document.querySelector('#spinBtn').style.background = "#ddd";
+                    document.querySelector('#spinBtn').style.borderColor = "#bbb";
+                }
+            }, 4000);
+        }
+
+        function showResult() {
+            // Force text Update just in case
+            document.querySelector('.offer-big').innerText = "50% OFF";
+            resultModal.style.display = 'flex';
+        }
+
+        function claimOffer() {
+            resultModal.style.display = 'none';
+
+            if (founderSpinsLeft > 0) {
+                // Founder Loop
+                document.querySelector('#spinBtn span').innerText = `SPIN (${founderSpinsLeft})`;
+                return;
+            }
+
+            // Normal Claim
+            const uniqueId = "BS-" + Date.now().toString().slice(-6);
+            const phoneNumber = "918792231579";
+            const msg = `Hello, I am *${currentUser}*.%0a%0aI have won *50% OFF* on Brilliant Students Courses!%0aID: *${uniqueId}*`;
+            window.location.href = `https://wa.me/${phoneNumber}?text=${msg}`;
+        }
+
+        function checkStorage() {
+            if (localStorage.getItem('bs_offer_claimed') === 'true' && founderSpinsLeft <= 0) {
+                document.querySelector('#spinBtn span').innerText = "DONE";
+                document.querySelector('#spinBtn').style.background = "#ddd";
+                document.querySelector('#spinBtn').style.borderColor = "#bbb";
+            }
+        }
+
+        // --- FOUNDER FUNCTIONS ---
         function openFounderModal() {
             founderModal.style.display = 'flex';
             document.getElementById('founderPass').value = '';
@@ -431,181 +563,43 @@
             document.getElementById('founderError').style.display = 'none';
         }
 
-        function closeFounderModal() {
-            founderModal.style.display = 'none';
-        }
+        function closeFounderModal() { founderModal.style.display = 'none'; }
 
         function checkFounderPass() {
-            const pass = document.getElementById('founderPass').value;
-            const err = document.getElementById('founderError');
-            
-            // Allow admin access with either credential set
-            if (pass === 'cs' || pass === 'SPIN2025') { 
-                err.style.display = 'none';
+            const p = document.getElementById('founderPass').value;
+            if (p === 'cs' || p === 'SPIN2025') {
                 document.getElementById('founderPass').style.display = 'none';
                 document.getElementById('founderBtn').style.display = 'none';
                 document.getElementById('founderSettings').style.display = 'block';
                 document.getElementById('founderConfirmBtn').style.display = 'inline-block';
+                document.getElementById('founderError').style.display = 'none';
             } else {
-                err.style.display = 'block';
+                document.getElementById('founderError').style.display = 'block';
             }
         }
 
         function confirmFounderSpins() {
-            const count = document.getElementById('spinCountSelect').value;
-            founderSpinsLeft = parseInt(count);
-
-            const msg = document.getElementById('founderMsg');
-            msg.innerText = "Spins Reset Successful";
-            msg.style.display = 'block';
+            founderSpinsLeft = parseInt(document.getElementById('spinCountSelect').value);
+            document.getElementById('founderMsg').innerText = "Spins Added!";
+            document.getElementById('founderMsg').style.display = 'block';
             
-            document.getElementById('founderSettings').style.display = 'none';
-            document.getElementById('founderConfirmBtn').style.display = 'none';
-
-            setTimeout(() => {
-                closeFounderModal();
-                enableSpinButtonForFounder();
-            }, 1500);
-        }
-
-        function enableSpinButtonForFounder() {
-            localStorage.removeItem('bs_offer_claimed'); // Clear storage lock
-            spinBtn.disabled = false;
-            spinBtn.style.backgroundColor = "white";
-            spinBtn.innerText = "SPIN";
-            isSpinning = false;
-        }
-
-        // --- LOGIN LOGIC ---
-        function attemptLogin() {
-            const u = document.getElementById('username').value.trim();
-            const p = document.getElementById('password').value.trim();
-            const err = document.getElementById('login-error');
-
-            if (USERS.hasOwnProperty(u) && USERS[u] === p) {
-                currentUser = u; 
-                loginSection.style.display = 'none';
-                gameSection.style.display = 'flex';
-                err.style.display = 'none';
-                drawWheel();
-                checkStorage();
-            } else {
-                err.style.display = 'block';
-            }
-        }
-
-        function checkStorage() {
-            if (localStorage.getItem('bs_offer_claimed') === 'true' && founderSpinsLeft <= 0) {
-                spinBtn.disabled = true;
-                spinBtn.innerText = "DONE";
-                spinBtn.style.backgroundColor = "#ccc";
-                spinBtn.style.borderColor = "#999";
-            }
-        }
-
-        // --- WHEEL LOGIC ---
-        function drawWheel() {
-            const centerX = canvas.width / 2;
-            const centerY = canvas.height / 2;
-            const radius = canvas.width / 2;
-            const arc = Math.PI * 2 / SEGMENTS.length;
-
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            SEGMENTS.forEach((segment, i) => {
-                const angle = i * arc - (Math.PI / 2); 
-                ctx.beginPath();
-                ctx.moveTo(centerX, centerY);
-                ctx.arc(centerX, centerY, radius, angle, angle + arc);
-                ctx.lineTo(centerX, centerY);
-                
-                ctx.fillStyle = COLORS[i % COLORS.length];
-                ctx.fill();
-                ctx.save();
-
-                ctx.translate(centerX, centerY);
-                ctx.rotate(angle + arc / 2);
-                ctx.textAlign = "right";
-                ctx.fillStyle = TEXT_COLORS[i % TEXT_COLORS.length];
-                ctx.font = "bold 16px 'Cinzel', serif"; 
-                
-                let text = segment.replace(" OFF", "%");
-                if(segment.includes("Spin")) text = "Spin Again";
-                else text = segment;
-
-                ctx.fillText(text, radius - 25, 6);
-                ctx.restore();
-            });
-        }
-
-        function spinWheel() {
-            if (isSpinning) return;
-            if (founderSpinsLeft <= 0 && localStorage.getItem('bs_offer_claimed') === 'true') return;
-
-            isSpinning = true;
-            spinBtn.disabled = true;
-
-            const targetIndex = FORCED_INDICES_50_PERCENT[Math.floor(Math.random() * FORCED_INDICES_50_PERCENT.length)];
+            // Enable Button
+            localStorage.removeItem('bs_offer_claimed');
+            document.querySelector('#spinBtn span').innerText = "SPIN";
+            document.querySelector('#spinBtn').style.background = "#fff";
+            document.querySelector('#spinBtn').style.borderColor = C_GOLD;
             
-            const segmentAngle = 360 / SEGMENTS.length; // 30 degrees
-            
-            // CORRECTION: Center the pointer. 
-            // 360 - stopAngle brings the *start* of the segment to 0 (top/right). 
-            // We need to subtract half a segment (15 deg) to center it under the pointer at top (12 o'clock).
-            // Formula: 360 - (index * 30) - 15
-            const centerOffset = segmentAngle / 2; 
-            const stopAngle = (targetIndex * segmentAngle) + centerOffset;
-
-            const extraSpins = 10 * 360; 
-            // Reduced random offset to ensures it stays safely within the segment
-            const randomOffset = Math.floor(Math.random() * 16) - 8; // +/- 8 degrees
-            
-            const totalRotation = extraSpins + (360 - stopAngle) + randomOffset;
-
-            canvas.style.transform = `rotate(${totalRotation}deg)`;
-
-            // Wait 3 seconds (matches CSS transition)
-            setTimeout(() => {
-                isSpinning = false;
-                showResult(); 
-                
-                if (founderSpinsLeft > 0) {
-                    founderSpinsLeft--; 
-                } else {
-                    localStorage.setItem('bs_offer_claimed', 'true');
-                    spinBtn.innerText = "DONE";
-                }
-            }, 3000); 
+            setTimeout(closeFounderModal, 1000);
         }
 
-        function showResult() {
-            document.querySelector('.offer-code').innerText = "50% OFF";
-            resultModal.style.display = 'flex';
-        }
+        // Enter key listeners
+        document.getElementById('password').addEventListener('keypress', (e) => { if(e.key==='Enter') attemptLogin(); });
+        document.getElementById('founderPass').addEventListener('keypress', (e) => { if(e.key==='Enter') checkFounderPass(); });
 
-        function claimOffer() {
-            resultModal.style.display = 'none';
-
-            if (founderSpinsLeft > 0) {
-                spinBtn.disabled = false;
-                spinBtn.innerText = `SPIN (${founderSpinsLeft})`;
-                return; 
-            }
-
-            // WhatsApp Redirect
-            const uniqueId = "BS-" + Math.floor(Math.random() * 1000) + "-" + Date.now().toString().slice(-5);
-            const phoneNumber = "918792231579"; 
-            const text = `Hello, I am *${currentUser}*.%0a%0aI just won *50% OFF* on Brilliant Students Materials!%0a%0aUnique Claim ID: *${uniqueId}*%0a%0aPlease help me claim this offer.`;
-            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${text}`;
-            window.open(whatsappUrl, '_blank');
-        }
-
-        document.getElementById('password').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') attemptLogin();
-        });
-        document.getElementById('founderPass').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') checkFounderPass();
-        });
+        // Add shake animation style
+        const style = document.createElement('style');
+        style.innerHTML = `@keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-5px);} 75% {transform: translateX(5px);} }`;
+        document.head.appendChild(style);
 
     </script>
 </body>
